@@ -17,4 +17,7 @@ urlpatterns = [
     url(r'^pizzashop/$', views.pizzashop_home, name='pizzashop-home'),
     # Регистрация самого владельца и его пиццерии
     url(r'^pizzashop/sing-up/$', views.pizzashop_sing_up, name='pizzashop-sing-up'),
+
+    url(r'^pizzashop/account/$', views.pizzashop_account, name='pizzashop-account'),
+    url(r'^pizzashop/pizza/$', views.pizzashop_pizza, name='pizzashop-pizza'),
 ]

@@ -11,7 +11,7 @@ class PizzaShop(models.Model):
     name = models.CharField('Название пиццерии', max_length=100)
     phone = models.CharField('Номер телефона', max_length=100)
     address = models.CharField('Адресс пиццерии', max_length=100)
-    logo = models.ImageField('Логотип', upload_to='pizzashop_logo/', blank=False)
+    logo = models.ImageField('Логотип', upload_to='pizzashopapp/pizzashop_logo/', blank=False)
 
     def __str__(self):
         return self.name
