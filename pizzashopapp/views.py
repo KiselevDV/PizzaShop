@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required  # проверка входа
 from django.contrib.auth.models import User
-from .forms import UserForm, PizzaShopForm
+from .forms import UserForm, UserFormForEdit, PizzaShopForm
 
 
 def home(request):
@@ -11,12 +11,30 @@ def home(request):
 
 @login_required(login_url='/pizzashop/sign-in/')
 def pizzashop_home(request):
-    return render(request, 'pizzashop/home.html', {})
+    return redirect(pizzashop_pizza)
 
 
 @login_required(login_url='/pizzashop/sign-in/')
 def pizzashop_account(request):
-    return render(request, 'pizzashop/account.html', {})
+    # instance - получение данных из БД и подставление их в форму UserFormForEdit
+    user_form = UserFormForEdit(instance=request.user)
+    pizzashop_form = PizzaShopForm(instance=request.user.pizzashop)
+
+    # Если были внесены правки в форме и отравлены на обновление (POST)
+    if request.method == "POST":
+        # Собирает новые данные из полей при редактировании, остальные (неизменённые данные) из БД
+        user_form = UserFormForEdit(request.POST, instance=request.user)
+        pizzashop_form = PizzaShopForm(request.POST, request.FILES, instance=request.user.pizzashop)
+
+        if user_form.is_valid() and pizzashop_form.is_valid():
+            # Если формы валидны сохраняет в БД
+            user_form.save()
+            pizzashop_form.save()
+
+    return render(request, 'pizzashop/account.html', {
+        'user_form': user_form,
+        'pizzashop_form': pizzashop_form,
+    })
 
 
 @login_required(login_url='/pizzashop/sign-in/')
