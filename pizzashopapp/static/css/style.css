@@ -26,7 +26,7 @@ body {
     top: 0;
     left: 0;
     padding: 0;
-    background-color: #7B0000;
+    background-color: #7B2324;
     overflow: auto;
 }
 
@@ -44,4 +44,59 @@ body {
 
 .sidebar > div:first-child > h5 {
     color: #ffffff;
+}
+
+/*SIDE BAR - MENU*/
+.sidebar .list-group {
+    padding: 0;
+    background-color: #7B2324;
+}
+
+.sidebar .list-group > span {
+    color: white;
+    display: block;
+    margin-top: 20px;
+    padding: 20px 30px;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.sidebar .list-group .list-group-item,
+.sidebar .list-group .list-group-item:focus {
+    background-color: #7B2324;
+    color: white;
+    border: 0;
+    padding-left: 60px;
+    padding-right: 30px;
+}
+
+.sidebar .list-group .list-group-item:active,
+.sidebar .list-group .list-group-item:hover {
+    background-color: #3F1E1E;
+    color: #e0deeb;
+}
+
+.sidebar .list-group .list-group-item:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.sidebar .list-group .list-group-item .badge,
+.sidebar .list-group .list-group-item.active .badge {
+    background-color: #E31E25;
+    color: #e0deeb;
+}
+
+/*SIDE BAR - LOGOUT*/
+.sidebar > div:last-child {
+    padding: 30px;
+}
+
+.sidebar > div:last-child .btn {
+    width: 100%;
+}
+
+/*SIDE BAR - CONTENT*/
+.content {
+    padding: 0 40px;
 }

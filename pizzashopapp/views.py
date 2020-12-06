@@ -9,22 +9,22 @@ def home(request):
     return redirect(pizzashop_home)
 
 
-@login_required(login_url='/pizzashop/sing-in/')
+@login_required(login_url='/pizzashop/sign-in/')
 def pizzashop_home(request):
     return render(request, 'pizzashop/home.html', {})
 
 
-@login_required(login_url='/pizzashop/sing-in/')
+@login_required(login_url='/pizzashop/sign-in/')
 def pizzashop_account(request):
     return render(request, 'pizzashop/account.html', {})
 
 
-@login_required(login_url='/pizzashop/sing-in/')
+@login_required(login_url='/pizzashop/sign-in/')
 def pizzashop_pizza(request):
     return render(request, 'pizzashop/pizza.html', {})
 
 
-def pizzashop_sing_up(request):
+def pizzashop_sign_up(request):
     user_form = UserForm()
     pizzashop_form = PizzaShopForm()
 
@@ -46,7 +46,7 @@ def pizzashop_sing_up(request):
 
             return redirect(pizzashop_home)
 
-    return render(request, 'pizzashop/sing_up.html', {
+    return render(request, 'pizzashop/sign_up.html', {
         'user_form': user_form,
         'pizzashop_form': pizzashop_form,
     })

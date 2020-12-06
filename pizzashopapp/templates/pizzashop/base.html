@@ -5,14 +5,21 @@
 {% block sidebar %}
 	<div class="text-center">
 		<img class="img-circle" src="{{ MEDIA_URL }}{{ request.user.pizzashop.logo }}"
-				 alt="logo" width="70" height="70">
+				 alt="logo" width="125" height="125">
 		<br>
 		<br>
-	<h4>Приветствую, {{ request.user.get_full_name }}</h4>
-	<h5>{{ request.user.pizzashop.name }}</h5>
+		<h4>Приветствую, {{ request.user.get_full_name }}</h4>
+		<h5>{{ request.user.pizzashop.name }}</h5>
 	</div>
 
-	<a href="{% url 'pizzashop-account' %}">Профиль</a>
-	-
-	<a href="{% url 'pizzashop-pizza' %}">Пиццы</a>
+	<div class="list-group">
+		<span class="text-uppercase">Меню</span>
+		<a href="{% url 'pizzashop-pizza' %}" class="list-group-item">Пиццы</a>
+		<span class="text-uppercase">Профиль</span>
+		<a href="{% url 'pizzashop-account' %}" class="list-group-item">Профиль</a>
+	</div>
+
+	<div class="text-center">
+		<a href="{% url 'pizzashop-sign-out' %}?next={{ request.path }}" class="btn btn-red">Выход</a>
+	</div>
 {% endblock %}
