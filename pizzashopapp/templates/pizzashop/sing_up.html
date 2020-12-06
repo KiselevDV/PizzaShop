@@ -10,5 +10,11 @@
 </head>
 <body>
 <h2>Страница регистрации</h2>
+<form method="post">
+	{% csrf_token %}
+	{{ user_form.as_p }}
+	{{ pizzashop_form.as_p }}
+	<button type="submit">Зарегистрировать</button>
+</form>
 </body>
 </html>

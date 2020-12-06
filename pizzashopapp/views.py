@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required  # проверка входа
+from .forms import UserForm, PizzaShopForm
 
 
 def home(request):
@@ -12,4 +13,9 @@ def pizzashop_home(request):
 
 
 def pizzashop_sing_up(request):
-    return render(request, 'pizzashop/sing_up.html', {})
+    user_form = UserForm()
+    pizzashop_form = PizzaShopForm()
+    return render(request, 'pizzashop/sing_up.html', {
+        'user_form': user_form,
+        'pizzashop_form': pizzashop_form,
+    })
