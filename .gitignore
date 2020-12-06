@@ -1,2 +1,5 @@
 .env/
 .idea/
+pizza_shop_project/__pycache__/
+pizzashopapp/__pycache__/
+pizzashopapp/migrations/__pycache__/
