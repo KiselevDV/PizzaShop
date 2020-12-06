@@ -6,6 +6,8 @@ from .models import PizzaShop
 # Мы используем model User, поэтому ModelForm вместо Form
 class UserForm(forms.ModelForm):
     """Владелец пиццерии"""
+    username = forms.CharField(max_length=100, required=True)
+    password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
         model = User
