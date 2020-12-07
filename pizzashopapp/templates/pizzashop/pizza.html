@@ -1,5 +1,42 @@
 {% extends 'pizzashop/base.html' %}
 
 {% block page %}
-	<a href="{% url 'pizzashop-add-pizza' %}" class="btn btn-red">Добавить пиццу</a>
+	<div class="panel">
+		<div class="panel-heading bg-ruby">
+			<h4 class="panel-title text-center text-white">
+				Пиццы
+			</h4>
+		</div>
+		<div class="panel-body">
+			<div class="text-right">
+				<a href="{% url 'pizzashop-add-pizza' %}" class="btn btn-red">Добавить пиццу</a>
+				<br>
+				<br>
+			</div>
+			<table class="table table-bordered table-hover table-striped">
+				<thead>
+				<tr class="bg-red text-white">
+					<th>ID</th>
+					<th>Название</th>
+					<th>Короткое описание</th>
+					<th>Цена</th>
+					<th class="text-center">Изображене</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for pizza in pizzas %}
+					<tr>
+						<td scope="row">{{ pizza.id }}</td>
+						<td><a href="#">{{ pizza.name }}</a></td>
+						<td>{{ pizza.description }}</td>
+						<td>{{ pizza.price }}</td>
+						<td class="text-center">
+							<img class="img-rounded" src="{{ MEDIA_URL }}{{ pizza.image }}" alt="Pizza
+							photo" width="75" height="50"></td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
 {% endblock %}

@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required  # проверка входа
 from django.contrib.auth.models import User
 from .forms import UserForm, UserFormForEdit, PizzaShopForm, PizzaForm
+from .models import Pizza
 
 
 def home(request):
@@ -42,7 +43,11 @@ def pizzashop_account(request):
 @login_required(login_url='/pizzashop/sign-in/')
 def pizzashop_pizza(request):
     # Меню пицц
-    return render(request, 'pizzashop/pizza.html', {})
+    # Получаем все пиццы "Pizza" из модели и фильтруем их по полю "pizzashop" от текущей пиццерии
+    # которая связана с владельцем (User) "request.user.pizzashop".
+    # Сортируем "order_by" по полю "id" в обратном порядке "-id"
+    pizzas = Pizza.objects.filter(pizzashop=request.user.pizzashop).order_by('-id')
+    return render(request, 'pizzashop/pizza.html', {'pizzas': pizzas})
 
 
 @login_required(login_url='/pizzashop/sign-in/')
