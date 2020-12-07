@@ -72,6 +72,25 @@ def pizzashop_add_pizza(request):
     return render(request, 'pizzashop/add_pizza.html', {'pizza_form': pizza_form})
 
 
+@login_required(login_url='/pizzashop/sign-in/')
+def pizzashop_edit_pizza(request, pizza_id):
+    # Редактирования пицц
+    # instance - заполнение формы данными из БД
+    # Pizza.objects.get(id=pizza_id) - получаем объект пиццы по её id
+    pizza_form = PizzaForm(instance=Pizza.objects.get(id=pizza_id))
+
+    if request.method == 'POST':
+        # PizzaForm(request.POST, request.FILES) вызов формы и заполнение её днными
+        # request.POST - текст, request.FILES - медиа
+        pizza_form = PizzaForm(request.POST, request.FILES, instance=Pizza.objects.get(id=pizza_id))
+
+        if pizza_form.is_valid():
+            pizza = pizza_form.save()
+            return redirect(pizzashop_pizza)
+
+    return render(request, 'pizzashop/edit_pizza.html', {'pizza_form': pizza_form})
+
+
 def pizzashop_sign_up(request):
     # Регистрация нового владельца и его пиццерии
     user_form = UserForm()

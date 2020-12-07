@@ -27,7 +27,7 @@
 				{% for pizza in pizzas %}
 					<tr>
 						<td scope="row">{{ pizza.id }}</td>
-						<td><a href="#">{{ pizza.name }}</a></td>
+						<td><a href="{% url 'pizzashop-edit-pizza' pizza.id %}">{{ pizza.name }}</a></td>
 						<td>{{ pizza.description }}</td>
 						<td>{{ pizza.price }}</td>
 						<td class="text-center">

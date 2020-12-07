@@ -25,4 +25,7 @@ urlpatterns = [
 
     # Страница для добавления новых пицц
     url(r'^pizzashop/pizza/add/$', views.pizzashop_add_pizza, name='pizzashop-add-pizza'),
+    # Страница для редактирования пицц
+    url(r'^pizzashop/pizza/edit/(?P<pizza_id>\d+)/$',
+        views.pizzashop_edit_pizza, name='pizzashop-edit-pizza'),
 ]
