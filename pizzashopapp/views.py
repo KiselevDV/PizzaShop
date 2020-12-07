@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required  # проверка входа
 from django.contrib.auth.models import User
-from .forms import UserForm, UserFormForEdit, PizzaShopForm
+from .forms import UserForm, UserFormForEdit, PizzaShopForm, PizzaForm
 
 
 def home(request):
@@ -16,10 +16,12 @@ def pizzashop_home(request):
 
 @login_required(login_url='/pizzashop/sign-in/')
 def pizzashop_account(request):
+    # Меню профиля владельца
     # instance - получение данных из БД и подставление их в форму UserFormForEdit
     user_form = UserFormForEdit(instance=request.user)
     pizzashop_form = PizzaShopForm(instance=request.user.pizzashop)
 
+    # Редактирование части данных о владельце
     # Если были внесены правки в форме и отравлены на обновление (POST)
     if request.method == "POST":
         # Собирает новые данные из полей при редактировании, остальные (неизменённые данные) из БД
@@ -39,10 +41,34 @@ def pizzashop_account(request):
 
 @login_required(login_url='/pizzashop/sign-in/')
 def pizzashop_pizza(request):
+    # Меню пицц
     return render(request, 'pizzashop/pizza.html', {})
 
 
+@login_required(login_url='/pizzashop/sign-in/')
+def pizzashop_add_pizza(request):
+    # Добавление новых пицц
+    # PizzaForm() - вызов пустой формы
+    pizza_form = PizzaForm()
+
+    if request.method == 'POST':
+        # PizzaForm(request.POST, request.FILES) вызов формы и заполнение её днными
+        # request.POST - текст, request.FILES - медиа
+        pizza_form = PizzaForm(request.POST, request.FILES)
+
+        if pizza_form.is_valid():
+            pizza = pizza_form.save(commit=False)  # Приостановка сохранения
+            # Привязываем пиццерию с пиццей
+            # Добавляем данные о пиццерии в поле пиццерии в модели пиццы
+            pizza.pizzashop = request.user.pizzashop
+            pizza.save()
+            return redirect(pizzashop_pizza)
+
+    return render(request, 'pizzashop/add_pizza.html', {'pizza_form': pizza_form})
+
+
 def pizzashop_sign_up(request):
+    # Регистрация нового владельца и его пиццерии
     user_form = UserForm()
     pizzashop_form = PizzaShopForm()
 

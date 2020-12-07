@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import PizzaShop
+from .models import PizzaShop, Pizza
 
 
 # Мы используем model User, поэтому ModelForm вместо Form
@@ -29,3 +29,11 @@ class PizzaShopForm(forms.ModelForm):
     class Meta:
         model = PizzaShop
         fields = ('name', 'phone', 'address', 'logo')
+
+
+class PizzaForm(forms.ModelForm):
+    """Пицца"""
+
+    class Meta:
+        model = Pizza
+        exclude = ('pizzashop',)
