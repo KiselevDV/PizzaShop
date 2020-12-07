@@ -1,6 +1,6 @@
 from django.http import JsonResponse  # возращает ответ в формате json
-from .models import PizzaShop
-from .serializers import PizzaShopSerializer
+from .models import PizzaShop, Pizza
+from .serializers import PizzaShopSerializer, PizzaSerializer
 
 
 def client_get_pizzashops(request):
@@ -14,5 +14,15 @@ def client_get_pizzashops(request):
     ).data
 
     return JsonResponse({'pizzashops': pizzashops})
+
+
+def client_get_pizzas(request, pizzashop_id):
+    pizzas = PizzaSerializer(
+        Pizza.objects.all().filter(pizzashop_id=pizzashop_id).order_by('-id'),
+        many=True,
+        context={'request': request}
+    ).data
+
+    return JsonResponse({'pizzas': pizzas})
 
 # Аналог views для REST API

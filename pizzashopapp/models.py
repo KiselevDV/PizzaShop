@@ -24,7 +24,7 @@ class PizzaShop(models.Model):
 
 
 class Pizza(models.Model):
-    pizzashop = models.ForeignKey(PizzaShop)
+    pizzashop = models.ForeignKey(PizzaShop, verbose_name='Пиццерия')
     name = models.CharField('Название пиццы', max_length=30)
     description = models.CharField('Описание', max_length=100)
     image = models.ImageField(

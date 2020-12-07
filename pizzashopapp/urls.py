@@ -29,7 +29,9 @@ urlpatterns = [
     url(r'^pizzashop/pizza/edit/(?P<pizza_id>\d+)/$',
         views.pizzashop_edit_pizza, name='pizzashop-edit-pizza'),
 
-    # REST
+    # REST APIS
     # URL для получения ответа о пиццериях в виде json
     url(r'^api/client/pizzashops/$', apis.client_get_pizzashops),
+    # Получение данных о всех пиццах в виде json
+    url(r'^api/client/pizzas/(?P<pizzashop_id>\d+)/$', apis.client_get_pizzas),
 ]

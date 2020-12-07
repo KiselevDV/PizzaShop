@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import PizzaShop
+from .models import PizzaShop, Pizza
 
 
 class PizzaShopSerializer(serializers.ModelSerializer):
@@ -12,6 +12,7 @@ class PizzaShopSerializer(serializers.ModelSerializer):
         # Получаем "request" и записываем в переменную "request"
         request = self.context.get('request')
         # Саму ссылку на логотип, локальный url (без http://127.0.0.1:8000/)
+        # Модель "pizzashop", поле "logo.url" (url ссылка на картинку)
         logo_url = pizzashop.logo.url
         # request.build_absolute_uri - получение абсолютного url (полный адрес)
         return request.build_absolute_uri(logo_url)
@@ -19,6 +20,7 @@ class PizzaShopSerializer(serializers.ModelSerializer):
     class Meta:
         model = PizzaShop
         fields = ('id', 'name', 'phone', 'address', 'logo')
+
 
 # Пример селлиаризатора без наличия модели - наследование от встроенного "Serializer"
 # class PizzaShopSerializer(serializers.Serializer):
@@ -30,5 +32,19 @@ class PizzaShopSerializer(serializers.ModelSerializer):
 #     phone = serializers.CharField(max_length=100)
 #     address = serializers.CharField(max_length=100)
 #     logo = serializers.ImageField(max_length=None, allow_empty_file=False, use_url=True)
+
+
+class PizzaSerializer(serializers.ModelSerializer):
+    """Пиццы"""
+    image = serializers.SerializerMethodField()
+
+    def get_image(self, pizza):
+        request = self.context.get('request')
+        image_url = pizza.image.url
+        return request.build_absolute_uri(image_url)
+
+    class Meta:
+        model = Pizza
+        fields = ('id', 'name', 'description', 'image', 'price')
 
 # Аналог forms для REST API
