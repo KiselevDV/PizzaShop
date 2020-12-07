@@ -1,7 +1,7 @@
 from django.conf.urls import url
 # Для реализации системы входа/выхода (login/logout) - auth_views
 from django.contrib.auth import views as auth_views
-from . import views
+from . import views, apis
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
@@ -28,4 +28,8 @@ urlpatterns = [
     # Страница для редактирования пицц
     url(r'^pizzashop/pizza/edit/(?P<pizza_id>\d+)/$',
         views.pizzashop_edit_pizza, name='pizzashop-edit-pizza'),
+
+    # REST
+    # URL для получения ответа о пиццериях в виде json
+    url(r'^api/client/pizzashops/$', apis.client_get_pizzashops),
 ]
